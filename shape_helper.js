@@ -1,12 +1,22 @@
 class ShapeHelper{
   static parseProperties(animation){
-    var properties = {};
-    for(var property in animation.properties){
-      properties[property] = this.formatProperty(property, animation.properties[property]);
+    var result = {};
+    const { duration, ease, properties } = animation;
+
+    for(var property in properties){
+      result[property] = this.formatProperty(property, properties[property]);
     }
 
-    properties.transition = this.formatDuration(animation.duration);
-    return properties;
+    result.transition = this.formatDuration(duration) || '0s';
+
+    if(animation.ease){
+      result.transition = [
+        result.transition,
+        ease.type + ' ' + this.formatDuration(ease.duration)
+      ].join(', ');
+    }
+
+    return result;
   }
 
   static formatDuration(duration){

@@ -12,13 +12,12 @@
     },
     ease: {
       type: 'ease-in',
-      duration: 1
+      duration: 1000
     }
   };
 
   document.addEventListener('click', (event) => {
     let shapeModificator = new Shape(shape);
-    shapeModificator
-      .transact(step);
+    shapeModificator.transact(step);
   });
 })();
